@@ -1,46 +1,58 @@
+
+
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-
-
-//Here's the logic for the random function.
-int randomDirection() {
+//get a random number, compare it to the probability.
+bool random(double prob) {
   srand (time(NULL));
-  return rand() % 8 +1;
+  double i = ((double) rand() / (RAND_MAX)) ;
+  //cout << i <<" \n";
+  if (i > prob) {
+    return true;
+  } else
+    return false;
 }
 
-void diffuseOneParticle(pair<double,double> particle) {
-  int direction = randomDirection();
+void dissociateParticle(vector<int>& particle2Cluster,vector<vector<int>>& cluster2Receptor, double dissociationProb) {
 
-  if(direction == 1) {
-    particle.left--;
+  //which one to disassociate
+  for(int cluster=0; cluster < cluster2Receptor.size(); cluster++) {
+    if(random(dissociationProb)) {
+      for(int j =0; j< cluster2Receptor[cluster].size(); j++) {
+        if(random(dissociationProb)) {
+          //set the particle free and change it in the cluster2Receptor.
+          int temp = cluster2Receptor[cluster][j];
+          cluster2Receptor[cluster][j] = 0;
+          particle2Cluster[temp] = temp;
+          cout<<temp<<" \n";
 
-  } else if(direction ==2) {
-    particle.left--;
-    particle.right++;
-  } else if(direction == 3) {
-    particle.right++;
-  } else if(direction==4) {
-    particle.left++;
-    particle.right++;
-  } else if(direction==5) {
-    particle.left++;
-  } else if(direction==6) {
-    particle.left++;
-    particle.right--;
-  } else if(direction==7) {
-    particle.right--;
-  } else if(direction==8) {
-    particle.left--;
-    particle.right--;
+          //Implement: if the cluster is empty or only has 1 element, don't remove it. ??
+        }
+      }
+    }
   }
 }
+int main() {
 
-//implement the logic for diffusing quadrants. pass in more variables to generate the random function.
-//I don't understand the randomness function to do it now.
-void diffuseAQuadrant(set<pair<double,double>>> group) {
-  for(pair<double,double> p:group) {
-    diffuseOneParticle(p);
+  cout << "Hello world!" << endl;
+
+  vector<vector<int>> cluster2Receptor{ { 1,2},{3,4}};
+  vector<int> receptor2Cluster {1,1,3,3,5,6,7,8,9};
+  dissociateParticle(receptor2Cluster,cluster2Receptor,0.5);
+
+  for(int i : receptor2Cluster) {
+    cout<< i<< " ";
   }
+  cout<< "\n";
+  for(int i=0; i<cluster2Receptor.size(); i++) {
+    for(int j=0; j<cluster2Receptor[i].size(); j++) {
+      cout<< cluster2Receptor[i][j]<< " ";
+    }
+  }
+
+  return 0;
 }
+
 

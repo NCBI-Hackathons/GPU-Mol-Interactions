@@ -1,37 +1,34 @@
-
-## Please cite our work -- here is the ICMJE Standard Citation:
-
-### ...and a link to the DOI:
+# TurboReceptors
 
 ## Awesome Logo
 
-### You can make a free DOI with zenodo <link>
-
-## Website (if applicable)
-
 ## Intro statement
 
-## What's the problem?
+### We optimized molecular interaction simulation code to run on a GPU instead of a CPU!
 
-## Why should we solve it?
+#### Existing code is too slow
 
-# What is <this software>?
+#### Speeding up simulations will give us a better understanding of how receptors function in membrane space!
 
-Overview Diagram
+# What is TurboReceptors?
+
+Overview Diagram here
 
 # How to use <this software>
 
+## Get some GPUs
+
+### Run turboreceptors.sh 
+
+#### Sample Model Data
+
 # Software Workflow Diagram
 
-# File structure diagram 
+# File structure diagram
+
 #### _Define paths, variable names, etc_
 
-# Installation options:
-
-We provide two options for installing <this software>: Docker or directly from Github.
-
-
-### Installing <this software> from Github
+# Installing <this software> from Github
 
 1. `git clone https://github.com/NCBI-Hackathons/<this software>.git`
 2. Edit the configuration files as below

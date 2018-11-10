@@ -18,10 +18,10 @@ void assignPositionToArea(vector<vector<set<int>>>& quadrants, double * x, doubl
 
   //decide what particle belongs to what box
   for(int i=0; i< sizeOfArray; i++) {
-
     int row =(int) ceil(x[i]/divisionLength);
     int col= (int)ceil(y[i]/divisionLength);
     quadrants[row][col].insert(i);
+    cout<<x[i]<<" "<<y[i]<<endl;
   }
 }
 
@@ -52,7 +52,7 @@ void setRandomVariable(double * position, int numberOfParticles, double observeS
 }
 
 void diffuseQuadrants(vector<vector<set<int>>>& quadrants,double time, double diffCoef,double * x, double * y,int sizeOfArray, double observeSideLen, double divisions) {
-cout<<"$$$$$$$$$$$$$$$";
+  cout<<"$$$$$$$$$$$$$$$";
   for(int i=0; i < sizeOfArray; i++) {
     for(int j=0; j<sizeOfArray; j++) {
       for(int p : quadrants[i][j]) {
@@ -66,10 +66,6 @@ cout<<"$$$$$$$$$$$$$$$";
   }
 }
 int main() {
-
-  //I should expect an input of all the variables used below.
-
-
 //initiate array, set random position
   int iteration = 99999;
   double time = 10000;
@@ -85,18 +81,29 @@ int main() {
 //initialize positions
   setRandomVariable(xPos, numberOfParticles, observeSideLen);
   setRandomVariable(yPos, numberOfParticles, observeSideLen);
-cout<<"Done initializing"<<endl;
-//assign positions into area.
-  assignPositionToArea(quadrants, xPos, yPos, numberOfParticles, observeSideLen, divisions);
-  cout<<"Done assigning to area."<<endl;
-  for(int i=0; i< iteration; i++) {
-    diffuseQuadrants(quadrants,time, diffCoef, xPos, yPos, numberOfParticles,observeSideLen,divisions);
-  }
 
-  //print out the position arrays.
+
+  cout<<"Done initializing"<<endl;
+//assign positions into area.
+
+  for(int i=0; i< divisions; i++) {
+    vector<set<int>> a;
+    set<int> b {};
+    a.push_back(b);
+    quadrants.push_back(a);
+  }
+  assignPositionToArea(quadrants, xPos, yPos, numberOfParticles, observeSideLen, divisions);
+
+  cout<<"Done assigning to area."<<endl;
+
   for(int i=0; i<numberOfParticles; i++) {
     cout<< xPos[i] <<" "<< yPos[i]<<endl;
   }
+  for(int i=0; i< iteration; i++) {
+    diffuseQuadrants(quadrants,time, diffCoef, xPos, yPos, numberOfParticles,observeSideLen,divisions);
+  }
+  cout<<"Done simulating"<<endl;
+  //print out the position arrays.
 
 
 }
